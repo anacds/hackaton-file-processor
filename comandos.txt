@@ -1,0 +1,49 @@
+# No diretório do projeto
+docker-compose up -d
+
+
+# No Localstack
+docker exec -i localstack awslocal s3 mb s3://arquivos-ria
+
+docker exec -i localstack awslocal sqs create-queue --queue-name file-events
+
+docker exec -i localstack awslocal s3api put-bucket-notification-configuration \
+  --bucket arquivos-ria \
+  --notification-configuration file:///workspace/bucket-notification.json
+
+docker exec -i localstack awslocal s3 cp /workspace/sample_ria_r.csv s3://arquivos-ria/sample_ria_r.csv
+
+
+# Consumo da fila SQS 
+docker exec -i localstack awslocal sqs receive-message \
+  --queue-url http://localhost:4566/000000000000/file-events \
+  --max-number-of-messages 1
+
+
+
+AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test aws --endpoint-url=http://localhost:4566 s3 cp sample_ria_r.csv s3://arquivos-ria/
+
+
+kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+init-kafka:
+image: bitnami/kafka:latest
+container_name: init-kafka
+depends_on:
+    - kafka
+volumes:
+    - ./init-kafka.sh:/init.sh
+entrypoint: ["/bin/bash", "/init.sh"]
