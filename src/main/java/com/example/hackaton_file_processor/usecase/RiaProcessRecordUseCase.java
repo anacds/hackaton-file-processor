@@ -1,7 +1,6 @@
 package com.example.hackaton_file_processor.usecase;
 
 import com.example.hackaton_file_processor.dto.RecordDTO;
-import com.example.hackaton_file_processor.gateway.fhir.FhirPayloadMapper;
 import com.example.hackaton_file_processor.gateway.fhir.FhirPayloadMapperFactory;
 import com.example.hackaton_file_processor.gateway.kafka.KafkaPublisher;
 import lombok.RequiredArgsConstructor;
