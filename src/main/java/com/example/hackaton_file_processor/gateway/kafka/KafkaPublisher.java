@@ -3,6 +3,7 @@ package com.example.hackaton_file_processor.gateway.kafka;
 import com.example.hackaton_file_processor.dto.RecordDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,11 @@ public class KafkaPublisher {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    private final String successTopic = "${kafka-success-topic}";
-    private final String errorTopic = "${kafka-error-topic}";
+    @Value("${kafka-success-topic}")
+    private String successTopic;
+
+    @Value("${kafka-error-topic}")
+    private String errorTopic;
 
     public void publishSuccess(String fhirPayload) {
         log.info("Publicando payload de sucesso no Kafka");

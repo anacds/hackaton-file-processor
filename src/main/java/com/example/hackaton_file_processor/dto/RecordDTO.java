@@ -2,6 +2,8 @@ package com.example.hackaton_file_processor.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Data
 public class RecordDTO {
@@ -14,6 +16,8 @@ public class RecordDTO {
     @JsonProperty("estabelecimento_saude")
     private String estabelecimentoSaude;
 
+    @NotBlank
+    @NotNull
     @JsonProperty("identificador_individuo")
     private String identificadorIndividuo;
 

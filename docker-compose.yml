@@ -21,7 +21,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    image: confluentinc/cp-kafka:7.5.0
+    image: wurstmeister/kafka:latest
     container_name: kafka
     ports:
       - "9092:9092"
@@ -51,13 +51,3 @@ services:
       - ./init-aws.sh:/init.sh
       - ./bucket-notification.json:/workspace/bucket-notification.json
     entrypoint: ["/bin/bash", "/init.sh"]
-
-  init-kafka:
-    image: confluentinc/cp-kafka:7.5.0
-    container_name: init-kafka
-    depends_on:
-      - kafka
-    volumes:
-      - ./init-kafka.sh:/init.sh
-    entrypoint: ["/bin/bash", "/init.sh"]
-
