@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 @Data
 public class RecordDTO {
@@ -55,4 +56,72 @@ public class RecordDTO {
 
     @JsonProperty("local_aplicacao")
     private String localAplicacao;
+
+    public String getId_registro() {
+        return id_registro;
+    }
+
+    public String getTipo_documento() {
+        return tipo_documento;
+    }
+
+    public String getIdentificadorProfissional() {
+        return identificadorProfissional;
+    }
+
+    public String getEstabelecimentoSaude() {
+        return estabelecimentoSaude;
+    }
+
+    public String getIdentificadorIndividuo() {
+        return identificadorIndividuo;
+    }
+
+    public String getEstrategia() {
+        return estrategia;
+    }
+
+    public String getPesquisa_clinica() {
+        return pesquisa_clinica;
+    }
+
+    public String getAnvisaProtocoloEstudo() {
+        return anvisaProtocoloEstudo;
+    }
+
+    public String getAnvisaProtocoloVersao() {
+        return anvisaProtocoloVersao;
+    }
+
+    public String getAnvisaNumRegistro() {
+        return anvisaNumRegistro;
+    }
+
+    public String getDataImunizacao() {
+        return dataImunizacao;
+    }
+
+    public String getImunobiologico() {
+        return imunobiologico;
+    }
+
+    public String getFabricante() {
+        return fabricante;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public String getDose() {
+        return dose;
+    }
+
+    public String getViaAdministracao() {
+        return viaAdministracao;
+    }
+
+    public String getLocalAplicacao() {
+        return localAplicacao;
+    }
 }
